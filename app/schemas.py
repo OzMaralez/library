@@ -2,7 +2,7 @@ from uuid import UUID
 from datetime import date
 from typing import Optional
 
-from pydantic import BaseModel, Field, constr, conint
+from pydantic import BaseModel, Field
 
 
 class BookBase(BaseModel):
@@ -16,9 +16,9 @@ class BookCreate(BookBase):
 
 
 class BookUpdate(BookBase):
-    title: Optional[str] = None
-    author: Optional[str] = None
-    year: Optional[int] = None
+    title: Optional[str] = Field(None, max_length=200)
+    author: Optional[str] = Field(None, max_length=100)
+    year: Optional[int] = Field(None, ge=1000, le=date.today().year)
 
 
 class BookRead(BookBase):
