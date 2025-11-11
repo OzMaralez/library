@@ -1,4 +1,3 @@
-import uuid
 from typing import List, Optional
 
 from sqlalchemy import select
@@ -6,7 +5,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.dialects.postgresql import UUID
 
 from models import Book
-from schemas import BookCreate, BookRead, BookUpdate
+from schemas import BookCreate, BookUpdate
 
 
 def get_book(
