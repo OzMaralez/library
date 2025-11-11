@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Path, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
 import database_repositories as db_repo
@@ -21,8 +21,17 @@ def create_book(
 
 @router.get('/', response_model=list[BookRead])
 def list_books(
-        skip: int = Query(0, ge=0),
-        limit: int = Query(10, gt=0, le=100),
+        skip: int = Query(
+            0,
+            ge=0,
+            description="Сколько записей пропустить от начала выборки"
+        ),
+        limit: int = Query(
+            10,
+            gt=0,
+            le=100,
+            description="Сколько записей вернуть максимум (диапазон 1-100)"
+        ),
         db: Session = Depends(get_db)
 ):
     return db_repo.list_books(db, skip, limit)
